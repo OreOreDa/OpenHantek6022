@@ -1,3 +1,57 @@
+2025-10-16 (4a1a39f): Merge branch 'main' of https://github.com/heit0r/OpenHantek6022 into heit0r-main PR #443 - Adding minor changes in PT translation.
+2025-10-15 (3c021dc): (docs) Adding minor changes in PT translation.
+2025-10-10 (a54e26a): fix missing QtDBus on macOS
+2025-10-10 (f690e2b): remove macdeployqtfix from submodule
+2025-10-10 (e6bff86): remove macdeployqtfix
+2025-10-10 (90f1d5e): fix macOS 13+ missing from Launchpad
+2025-10-10 (fb2a0c3): fix macOS build
+2025-10-10 (bbcf986): Revert "The macOS build is currently not working"
+2025-09-08 (f3684a1): The macOS build is currently not working
+2025-09-08 (b24c854): reorder GitHub runner script
+2025-09-08 (898f7d5): use the correct arm64 runner
+2025-09-08 (4ce0f0c): ad linux arm64 build
+2025-09-06 (16053ea): update build process for Qt6
+2025-09-05 (dfc4d4e): show Qt lib version, not Qt compile version; min CMake ver. 3.10 -> 3.12
+2025-09-02 (68439b7): reorder logical functions; update translations
+2025-06-22 (e15ed3a): Added XOR function to the MathChannel module.
+2025-09-01 (ef3f244): Back to GO, disable MinGW build until a volunteer fixes it for Qt6
+2025-09-01 (8b3dd27): mingw-w64-x86_64-clang-libs: for lupdate
+2025-09-01 (3c4cc90): MinGW fix - step by step ...
+2025-09-01 (30daf92): MinGW fix - step by step ...
+2025-09-01 (a7e5910): test MinGW64 build
+2025-09-01 (d4115b4): test Win MSVC build action
+2025-08-30 (c2a6ef1): Fix GitHub runner Linux build – Temporarily disable Windows build
+2025-08-30 (a591a6e): update GitHub runner CI/CD script, update docs
+2025-08-30 (05ec4ee): Qt5 -> Qt6 transition
+2025-03-25 (982f746): Update italian translations
+2025-03-19 (c58e155): rename desktop file according Wayland requirement (RevDom.AppName.desktop)
+2025-03-19 (8890c2d): update user manual for upcoming v.3.4
+2025-03-19 (9345ce5): restructuring include files
+2025-03-09 (f82859f): try to fix #406, no UI translation now for LANG=en_* (not only en_US)
+2025-03-08 (17d05f8): add persistent option "doNotTranslate" to bypass the localisation
+2025-03-04 (7b8942a): Show oversampling factor on top of screen
+2025-03-03 (3f42320): finetuning the build process - no OH6022 changes
+2025-03-03 (b174c4c): test for macos intel and arm64 build
+2025-03-03 (d3c654e): test for macos build
+2025-03-03 (ff8afbc): test for macos build
+2025-03-03 (3cf168f): test for macos arm64 build
+2025-03-03 (2395866): test for macos arm64 build
+2025-03-03 (121858a): i18n update
+2025-03-03 (72b41d6): i18n update
+2025-03-03 (7e384e4): Merge branch 'spacejoey86-greater_math_modes'
+2025-03-03 (7fd84d8): Merge branch 'greater_math_modes' of https://github.com/spacejoey86/OpenHantek6022 into spacejoey86-greater_math_modes
+2025-03-03 (37cc223): fix #416 - install debian package instruction
+2025-03-03 (9508003): cleanup runner script
+2025-03-03 (8ce1e82): cleanup macos build, fix more warnings
+2025-03-03 (764dfc9): fix macos warning
+2025-03-03 (a399b92): update gizHub runner macos version
+2025-03-03 (3190b80): fix #419 - allow MATH scaling 20 mV .. 1000 V
+2025-03-02 (799cd67): replace deprecated upload-artifact@v3 with upload-artifact@v4
+2025-03-02 (68221da): fix #420 - remenber save as path for screenshots etc.
+2024-11-27 (e365b41): remove incorrect comment
+2024-11-27 (21c413c): update manual and fixes
+2024-11-27 (2a9f0c9): added greater than math modes
+2024-03-24 (ffd1691): README: add hint for possible graphics issue solution for win systems
 2024-03-24 (d0f44f8): Fix voltageScale to correct indices for ISDS205b
 2024-03-24 (09d0e28): Merge branch 'isds205b/channelCalFix' of https://github.com/wakass/OpenHantek6022 into wakass-isds205b/channelCalFix
 2024-03-24 (a207f5f): Fix voltageScale to correct indices

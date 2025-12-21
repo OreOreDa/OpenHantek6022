@@ -292,14 +292,14 @@ MainWindow::MainWindow( HantekDsoControl *dsoControl, DsoSettings *settings, Exp
              [ this ]() { dsoWidget->updateTimebase( dsoSettings->scope.horizontal.timebase ); } );
     connect( spectrumDock, &SpectrumDock::frequencybaseChanged, dsoWidget,
              [ this ]( double frequencybase ) { dsoWidget->updateFrequencybase( frequencybase ); } );
-    connect( dsoControl, &HantekDsoControl::samplerateChanged, horizontalDock,
-             [ this, horizontalDock, spectrumDock ]( double samplerate ) {
+    connect( dsoControl, &HantekDsoControl::samplerateCalculated, horizontalDock,
+             [ this, horizontalDock, spectrumDock ]( double samplerate, unsigned oversample ) {
                  // The timebase was set, let's adapt the samplerate accordingly
-                 // printf( "mainwindow::samplerateChanged( %g )\n", samplerate );
                  dsoSettings->scope.horizontal.samplerate = samplerate;
                  horizontalDock->setSamplerate( samplerate );
                  spectrumDock->setSamplerate( samplerate ); // mind the Nyquest frequency
                  dsoWidget->updateSamplerate( samplerate );
+                 dsoWidget->updateOversample( oversample );
              } );
     connect( horizontalDock, &HorizontalDock::calfreqChanged, dsoControl,
              [ dsoControl, this ]() { dsoControl->setCalFreq( dsoSettings->scope.horizontal.calfreq ); } );
@@ -314,7 +314,7 @@ MainWindow::MainWindow( HantekDsoControl *dsoControl, DsoSettings *settings, Exp
     connect( triggerDock, &TriggerDock::modeChanged, this, [ this ]( Dso::TriggerMode mode ) {
         ui->actionRefresh->setVisible( Dso::TriggerMode::ROLL == mode && dsoSettings->scope.horizontal.samplerate < 10e3 );
     } );
-    connect( dsoControl, &HantekDsoControl::samplerateChanged, this, [ this ]( double samplerate ) {
+    connect( dsoControl, &HantekDsoControl::samplerateCalculated, this, [ this ]( double samplerate ) {
         ui->actionRefresh->setVisible( Dso::TriggerMode::ROLL == dsoSettings->scope.trigger.mode && samplerate < 10e3 );
     } );
     connect( triggerDock, &TriggerDock::sourceChanged, dsoControl, &HantekDsoControl::setTriggerSource );
@@ -517,16 +517,16 @@ MainWindow::MainWindow( HantekDsoControl *dsoControl, DsoSettings *settings, Exp
                          "<p>Copyright &copy; 2010, 2011 Oliver Haag</p>"
                          "<p>Copyright &copy; 2012-%1 OpenHantek community<br/>"
                          "<a href='https://github.com/OpenHantek'>https://github.com/OpenHantek</a></p>"
-                         "<p>Open source firmware copyright &copy; 2019-%1 Ho-Ro<br/>"
+                         "<p>Open source firmware copyright &copy; 2019-%1 Martin Homuth-Rosemann<br/>"
                          "<a href='https://github.com/Ho-Ro/Hantek6022API'>https://github.com/Ho-Ro/Hantek6022API</a></p>" ) )
-                    .arg( QDate::currentDate().year() ) // latest year
+                    .arg( QDate::currentDate().year() ) // latest year for (c)
 
                 + deviceSpec // "DEVICE (SERIALNUMBER) FW_VERSION" or "Demo Mode"
 
                 + tr( "<p>Graphic: %1 - GLSL version %2</p>"
                       "<p>Qt version: %3</p>" )
                       .arg( GlScope::getOpenGLversion(), GlScope::getGLSLversion(), // graphic info
-                            QT_VERSION_STR ) +                                      // Qt version info
+                            qVersion() ) +                                          // Qt lib version info
                 tr( "<p>Running since %1 seconds.</p>" ).arg( elapsedTime.elapsed() / 1000 ) );
     } );
 
@@ -599,6 +599,7 @@ void MainWindow::screenShot( screenshotType_t screenshotType, bool autoSafe ) {
     QDateTime now = QDateTime::currentDateTime();
     QString docName = now.toString( tr( "yyyy-MM-dd hh:mm:ss" ) );
     QString fileName = now.toString( tr( "yyyyMMdd_hhmmss" ) );
+    fileName = QDir( lastSaveAsDir ).absoluteFilePath( fileName );
     statusBar()->showMessage( docName ); // show date in bottom line
 
     if ( screenshotType != SCREENSHOT && dsoSettings->view.zoom && dsoSettings->view.zoomImage &&
@@ -640,7 +641,7 @@ void MainWindow::screenShot( screenshotType_t screenshotType, bool autoSafe ) {
         fileDialog.setAcceptMode( QFileDialog::AcceptSave );
         if ( fileDialog.exec() != QDialog::Accepted )
             return;
-
+        lastSaveAsDir = fileDialog.directory().absolutePath();
         fileName = fileDialog.selectedFiles().first();
         if ( filters.indexOf( fileDialog.selectedNameFilter() ) == 0 ) { // save as image
             if ( !screenshot.save( fileName ) )
@@ -698,7 +699,7 @@ bool MainWindow::openDocument( QString docName ) {
     else
         url = QUrl( DocUrl + docName );
     if ( verboseLevel > 2 )
-        qDebug() << " " << url;
+        qDebug() << "  " << url;
     return QDesktopServices::openUrl( url );
 }
 

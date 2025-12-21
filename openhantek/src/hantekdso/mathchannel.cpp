@@ -3,7 +3,6 @@
 #include <QCoreApplication>
 #include <QDebug>
 
-#include "hantekdsocontrol.h"
 #include "mathchannel.h"
 #include "mathmodes.h"
 #include <cmath>
@@ -88,10 +87,29 @@ void MathChannel::calculate( DSOsamples &result ) {
                             ? 1.0
                             : 0.0 );
             break;
+        case Dso::MathMode::XOR_CH1_CH2:
+            // logic values: above / below trigger level
+            for ( auto it = mathChannel.begin(), end = mathChannel.end(); it != end; ++it, ++ch1Iterator, ++ch2Iterator )
+                *it = ( ( *ch1Iterator >= scope->voltage[ CH1 ].trigger ) ^ ( *ch2Iterator >= scope->voltage[ CH2 ].trigger )
+                            ? 1.0
+                            : 0.0 );
+            break;
         case Dso::MathMode::EQU_CH1_CH2:
             // logic values: above / below trigger level
             for ( auto it = mathChannel.begin(), end = mathChannel.end(); it != end; ++it, ++ch1Iterator, ++ch2Iterator )
                 *it = ( ( *ch1Iterator >= scope->voltage[ CH1 ].trigger ) == ( *ch2Iterator >= scope->voltage[ CH2 ].trigger )
+                            ? 1.0
+                            : 0.0 );
+            break;
+        case Dso::MathMode::GREAT_CH1_CH2:
+            for ( auto it = mathChannel.begin(), end = mathChannel.end(); it != end; ++it, ++ch1Iterator, ++ch2Iterator )
+                *it = ( ( *ch1Iterator ) > ( *ch2Iterator )
+                            ? 1.0
+                            : 0.0 );
+            break;
+        case Dso::MathMode::GREAT_CH2_CH1:
+            for ( auto it = mathChannel.begin(), end = mathChannel.end(); it != end; ++it, ++ch1Iterator, ++ch2Iterator )
+                *it = ( ( *ch2Iterator ) > ( *ch1Iterator )
                             ? 1.0
                             : 0.0 );
             break;

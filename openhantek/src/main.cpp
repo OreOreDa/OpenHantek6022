@@ -28,7 +28,6 @@
 
 // Settings
 #include "dsosettings.h"
-#include "viewconstants.h"
 #include "viewsettings.h"
 
 // DSO core logic
@@ -39,7 +38,6 @@
 
 // Post processing
 #include "post/graphgenerator.h"
-// #include "post/mathchannelgenerator.h"
 #include "post/postprocessing.h"
 #include "post/spectrumgenerator.h"
 
@@ -55,8 +53,6 @@
 
 // OpenGL setup
 #include "glscope.h"
-
-#include "models/modelDEMO.h"
 
 #include "OH_VERSION.h"
 
@@ -87,17 +83,14 @@ int main( int argc, char *argv[] ) {
     QCoreApplication::setOrganizationDomain( "openhantek.org" );
     QCoreApplication::setApplicationName( "OpenHantek6022" );
     QCoreApplication::setApplicationVersion( VERSION );
-    QCoreApplication::setAttribute( Qt::AA_UseHighDpiPixmaps, true );
-#if ( QT_VERSION >= QT_VERSION_CHECK( 5, 6, 0 ) )
-    QCoreApplication::setAttribute( Qt::AA_EnableHighDpiScaling, true );
-#endif
 
     bool demoMode = false;
     bool autoConnect = true;
     bool useGLES = false;
     bool useGLSL120 = false;
     bool useGLSL150 = false;
-    bool useLocale = true;
+    bool useLocale = true;       // the command line option
+    bool doNotTranslate = false; // the persistent option
     bool resetSettings = false;
     QString font = defaultFont;       // defined in viewsettings.h
     int fontSize = defaultFontSize;   // defined in viewsettings.h
@@ -120,6 +113,7 @@ int main( int argc, char *argv[] ) {
         styleFusion = storeSettings.value( "styleFusion", false ).toBool();
         theme = storeSettings.value( "theme", 0 ).toInt();
         toolTipVisible = storeSettings.value( "toolTipVisible", 1 ).toInt();
+        doNotTranslate = storeSettings.value( "doNotTranslate", false ).toBool();
         storeSettings.endGroup();
 
         // Pre-parse international flag so it can affect the command line help texts
@@ -137,9 +131,9 @@ int main( int argc, char *argv[] ) {
         //////// Load translations for command line help texts ////////
         QTranslator qtTranslator;
         QTranslator parserTranslator;
-
-        if ( useLocale && QLocale().name() != "en_US" ) { // somehow Qt on MacOS uses the german translation for en_US?!
-            if ( qtTranslator.load( "qt_" + QLocale().name(), QLibraryInfo::location( QLibraryInfo::TranslationsPath ) ) ) {
+        // feedback from a mac user: "somehow Qt on MacOS uses the german translation for en_US?!"
+        if ( !doNotTranslate && useLocale && QLocale().name().left( 3 ) != "en_" ) { // l18n only in these cases
+            if ( qtTranslator.load( "qt_" + QLocale().name(), QLibraryInfo::path( QLibraryInfo::TranslationsPath ) ) ) {
                 parserApp.installTranslator( &qtTranslator );
             }
             if ( parserTranslator.load( QLocale(), QLatin1String( "openhantek" ), QLatin1String( "_" ),
@@ -315,8 +309,9 @@ int main( int argc, char *argv[] ) {
                  << "load translations for locale" << QLocale().name();
     QTranslator qtTranslator;
     QTranslator openHantekTranslator;
-    if ( useLocale && QLocale().name() != "en_US" ) { // somehow Qt on MacOS uses the german translation for en_US?!
-        if ( qtTranslator.load( "qt_" + QLocale().name(), QLibraryInfo::location( QLibraryInfo::TranslationsPath ) ) ) {
+    if ( !doNotTranslate && useLocale &&
+         QLocale().name() != "en_US" ) { // somehow Qt on MacOS uses the german translation for en_US?!
+        if ( qtTranslator.load( "qt_" + QLocale().name(), QLibraryInfo::path( QLibraryInfo::TranslationsPath ) ) ) {
             openHantekApplication.installTranslator( &qtTranslator );
         }
         if ( openHantekTranslator.load( QLocale(), QLatin1String( "openhantek" ), QLatin1String( "_" ),
@@ -343,7 +338,7 @@ int main( int argc, char *argv[] ) {
             SelectSupportedDevice().showLibUSBFailedDialogModel( error );
             return -1;
         }
-        if ( useLocale ) // localize USB error messages, supported: "en", "nl", "fr", "ru"
+        if ( !doNotTranslate && useLocale ) // localize USB error messages, supported: "en", "nl", "fr", "ru"
             libusb_setlocale( QLocale().name().toLocal8Bit().constData() );
 
         // SelectSupportedDevive returns a real device unless demoMode is true
@@ -476,6 +471,7 @@ int main( int argc, char *argv[] ) {
     //////// Prepare visual appearance ////////
     // prepare the font size, style and theme settings for the scope application
     settings.scope.toolTipVisible = toolTipVisible; // show hints for beginners
+    settings.scope.doNotTranslate = doNotTranslate;
     settings.view.styleFusion = styleFusion;
     settings.view.theme = theme;
     QFont appFont = openHantekApplication.font();

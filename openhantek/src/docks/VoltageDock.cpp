@@ -9,9 +9,6 @@
 
 #include "VoltageDock.h"
 #include "dockwindows.h"
-
-#include "dsosettings.h"
-#include "sispinbox.h"
 #include "utils/printutils.h"
 
 
@@ -37,8 +34,9 @@ VoltageDock::VoltageDock( DsoSettingsScope *scope, const Dso::ControlSpecificati
         modeStrings.append( Dso::mathModeString( e ) );
     }
 
-    for ( double gainStep : scope->gainSteps ) {
-        gainStrings << valueToString( gainStep, UNIT_VOLTS, 0 );
+    updateGainStrings();
+    for ( double mathGainStep : scope->mathGainSteps ) {
+        mathGainStrings << valueToString( mathGainStep, UNIT_VOLTS, 0 );
     }
 
     dockLayout = new QGridLayout();
@@ -61,6 +59,7 @@ VoltageDock::VoltageDock( DsoSettingsScope *scope, const Dso::ControlSpecificati
             b.gainComboBox->setToolTip( tr( "Voltage range per vertical screen division" ) );
         b.invertCheckBox = new QCheckBox( tr( "Invert" ) );
         b.attnSpinBox = new QSpinBox();
+        b.attnSpinBox->setStepType( QAbstractSpinBox::AdaptiveDecimalStepType );
         if ( scope->toolTipVisible )
             b.attnSpinBox->setToolTip( tr( "Set probe attenuation, scroll or type a value to select" ) );
         b.attnSpinBox->setMinimum( ATTENUATION_MIN );
@@ -73,12 +72,13 @@ VoltageDock::VoltageDock( DsoSettingsScope *scope, const Dso::ControlSpecificati
             b.miscComboBox->addItems( couplingStrings );
             if ( scope->toolTipVisible )
                 b.miscComboBox->setToolTip( tr( "Select DC or AC coupling" ) );
+            b.gainComboBox->addItems( gainStrings );
         } else {
             b.miscComboBox->addItems( modeStrings );
             if ( scope->toolTipVisible )
                 b.miscComboBox->setToolTip( tr( "Select the mathematical operation for this channel" ) );
+            b.gainComboBox->addItems( mathGainStrings );
         }
-        b.gainComboBox->addItems( gainStrings );
 
         if ( channel < spec->channels ) {
             dockLayout->setColumnStretch( 1, 1 ); // stretch ComboBox in 2nd (middle) column 1x
@@ -196,10 +196,17 @@ void VoltageDock::setCoupling( ChannelID channel, unsigned couplingIndex ) {
 void VoltageDock::setGain( ChannelID channel, unsigned gainStepIndex ) {
     if ( channel >= scope->voltage.size() )
         return;
-    if ( gainStepIndex >= scope->gainSteps.size() )
-        return;
-    if ( scope->verboseLevel > 2 )
-        qDebug() << "  VDock::setGain()" << channel << gainStrings[ int( gainStepIndex ) ];
+    if ( channel < spec->channels ) { // Voltage channel
+        if ( gainStepIndex >= scope->gainSteps.size() )
+            return;
+        if ( scope->verboseLevel > 2 )
+            qDebug() << "  VDock::setGain()" << channel << gainStrings[ int( gainStepIndex ) ];
+    } else {
+        if ( gainStepIndex >= scope->mathGainSteps.size() )
+            return;
+        if ( scope->verboseLevel > 2 )
+            qDebug() << "  VDock::setGain()" << channel << mathGainStrings[ int( gainStepIndex ) ];
+    }
     QSignalBlocker blocker( channelBlocks[ channel ].gainComboBox );
     channelBlocks[ channel ].gainComboBox->setCurrentIndex( int( gainStepIndex ) );
 }
@@ -212,20 +219,21 @@ void VoltageDock::setAttn( ChannelID channel, double attnValue ) {
         return;
     QSignalBlocker blocker( channelBlocks[ channel ].gainComboBox );
     int index = channelBlocks[ channel ].gainComboBox->currentIndex();
-    gainStrings.clear();
-
-    // change unit to V² for the multiplying math functions
-    if ( channel >= spec->channels ) // MATH channel
-        for ( double gainStep : scope->gainSteps )
-            gainStrings << valueToString(
-                gainStep * attnValue, Dso::mathModeUnit( Dso::MathMode( scope->voltage[ spec->channels ].couplingOrMathIndex ) ),
-                -1 ); // auto format V²
-    else
-        for ( double gainStep : scope->gainSteps )
-            gainStrings << valueToString( gainStep * attnValue, UNIT_VOLTS, -1 ); // auto format V²
 
     channelBlocks[ channel ].gainComboBox->clear();
-    channelBlocks[ channel ].gainComboBox->addItems( gainStrings );
+    // change unit to V² for the multiplying math functions
+    if ( channel < spec->channels ) { // Voltage channel
+        updateGainStrings( attnValue );
+        channelBlocks[ channel ].gainComboBox->addItems( gainStrings );
+    } else {
+        mathGainStrings.clear();
+        for ( double mathGainStep : scope->mathGainSteps )
+            mathGainStrings << valueToString(
+                mathGainStep * attnValue,
+                Dso::mathModeUnit( Dso::MathMode( scope->voltage[ spec->channels ].couplingOrMathIndex ) ),
+                -1 ); // auto format V or V²
+        channelBlocks[ channel ].gainComboBox->addItems( mathGainStrings );
+    }
     channelBlocks[ channel ].gainComboBox->setCurrentIndex( index );
     scope->voltage[ channel ].probeAttn = attnValue;
     channelBlocks[ channel ].attnSpinBox->setValue( int( attnValue ) );
@@ -257,4 +265,12 @@ void VoltageDock::setInverted( ChannelID channel, bool inverted ) {
         qDebug() << "  VDock::setInverted()" << channel << inverted;
     QSignalBlocker blocker( channelBlocks[ channel ].invertCheckBox );
     channelBlocks[ channel ].invertCheckBox->setChecked( inverted );
+}
+
+
+void VoltageDock::updateGainStrings( double attnValue ) {
+    gainStrings.clear();
+    for ( auto gainStep : spec->gain ) {
+        gainStrings << valueToString( gainStep.Vdiv * attnValue, UNIT_VOLTS, 0 );
+    }
 }

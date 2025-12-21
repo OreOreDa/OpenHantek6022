@@ -483,7 +483,12 @@
         <translation>Visa verktygstips för användargränssnittet (omstart krävs för att få effekt)</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/DsoConfigScopePage.cpp" line="102"/>
+        <location filename="../src/configdialog/DsoConfigScopePage.cpp" line="91"/>
+        <source>Use the international interface (restart needed to apply the change)</source>
+        <translation>Använd det internationella gränssnittet (omstart krävs för att få effekt)</translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/DsoConfigScopePage.cpp" line="105"/>
         <source>Configuration</source>
         <translation>Konfiguration</translation>
     </message>
@@ -532,54 +537,54 @@
 <context>
     <name>DsoWidget</name>
     <message>
-        <location filename="../src/dsowidget.cpp" line="955"/>
+        <location filename="../src/dsowidget.cpp" line="965"/>
         <source>TR</source>
         <translation>TR</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="194"/>
+        <location filename="../src/dsowidget.cpp" line="197"/>
         <source>Markers</source>
         <translation>Markörer</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="451"/>
+        <location filename="../src/dsowidget.cpp" line="454"/>
         <source>Trace position, drag the channel name up or down</source>
         <translation>Spårningsposition, dra kanalnamnet uppåt eller nedåt</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="473"/>
+        <location filename="../src/dsowidget.cpp" line="476"/>
         <source>Trigger position, drag the arrow left or right</source>
         <translation>Triggerposition, dra pilen till vänster eller höger</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="483"/>
+        <location filename="../src/dsowidget.cpp" line="486"/>
         <source>Trigger level, drag the arrow up or down</source>
         <translation>Triggernivå, dra pilen uppåt eller nedåt</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="497"/>
+        <location filename="../src/dsowidget.cpp" line="500"/>
         <source>Measure or zoom marker &apos;1&apos; and &apos;2&apos;, drag left or right</source>
         <translation>Mät- eller zoommarkör &quot;1&quot; och &quot;2&quot;, dra till vänster eller höger</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="594"/>
-        <location filename="../src/dsowidget.cpp" line="612"/>
+        <location filename="../src/dsowidget.cpp" line="597"/>
+        <location filename="../src/dsowidget.cpp" line="615"/>
         <source>ON</source>
         <translation>PÅ</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="598"/>
-        <location filename="../src/dsowidget.cpp" line="617"/>
+        <location filename="../src/dsowidget.cpp" line="601"/>
+        <location filename="../src/dsowidget.cpp" line="620"/>
         <source>OFF</source>
         <translation>AV</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="638"/>
+        <location filename="../src/dsowidget.cpp" line="641"/>
         <source>Markers  </source>
         <translation>Markörer  </translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="644"/>
+        <location filename="../src/dsowidget.cpp" line="647"/>
         <source>Zoom x%1  </source>
         <translation></translation>
     </message>
@@ -596,22 +601,32 @@
         <translation type="vanished">Zoom x%L1  </translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="647"/>
+        <location filename="../src/dsowidget.cpp" line="650"/>
         <source>Zoom ---  </source>
         <translation>Zoom ---  </translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="649"/>
-        <location filename="../src/dsowidget.cpp" line="651"/>
-        <location filename="../src/dsowidget.cpp" line="692"/>
-        <location filename="../src/dsowidget.cpp" line="739"/>
-        <location filename="../src/dsowidget.cpp" line="748"/>
-        <location filename="../src/dsowidget.cpp" line="769"/>
+        <location filename="../src/dsowidget.cpp" line="652"/>
+        <location filename="../src/dsowidget.cpp" line="654"/>
+        <location filename="../src/dsowidget.cpp" line="695"/>
+        <location filename="../src/dsowidget.cpp" line="742"/>
+        <location filename="../src/dsowidget.cpp" line="751"/>
+        <location filename="../src/dsowidget.cpp" line="779"/>
         <source>/div</source>
         <translation>/div</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="947"/>
+        <location filename="../src/dsowidget.cpp" line="769"/>
+        <source>%1x ovr </source>
+        <translation>%1x ovr </translation>
+    </message>
+    <message>
+        <location filename="../src/dsowidget.cpp" line="900"/>
+        <source>on screen</source>
+        <translation>på skärm</translation>
+    </message>
+    <message>
+        <location filename="../src/dsowidget.cpp" line="957"/>
         <source>&lt;b&gt; OFFSET CALIBRATION &lt;/b&gt;</source>
         <translation></translation>
     </message>
@@ -620,27 +635,26 @@
         <translation type="vanished">%L1%</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="720"/>
+        <location filename="../src/dsowidget.cpp" line="723"/>
         <source>%1  %2  %3  %4  %5</source>
         <translation>%1  %2  %3  %4  %5</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="759"/>
+        <location filename="../src/dsowidget.cpp" line="761"/>
         <source>/s</source>
         <translation>/s</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="890"/>
         <source> on screen</source>
-        <translation> på skärm</translation>
+        <translation type="vanished"> på skärm</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="1004"/>
+        <location filename="../src/dsowidget.cpp" line="1014"/>
         <source>pp</source>
         <translation>pp</translation>
     </message>
     <message>
-        <location filename="../src/dsowidget.cpp" line="1010"/>
+        <location filename="../src/dsowidget.cpp" line="1020"/>
         <source>rms</source>
         <translation>rms</translation>
     </message>
@@ -661,39 +675,39 @@
 <context>
     <name>GlScope</name>
     <message>
-        <location filename="../src/glscope.cpp" line="345"/>
+        <location filename="../src/glscope.cpp" line="344"/>
         <source>System does not support OpenGL Shading Language (GLSL)</source>
         <translation>Systemet har inte stöd för OpenGL Shading Language (GLSL)</translation>
     </message>
     <message>
-        <location filename="../src/glscope.cpp" line="349"/>
+        <location filename="../src/glscope.cpp" line="348"/>
         <source>OpenGL init called twice!</source>
         <translation>OpenGL init anropad två gånger!</translation>
     </message>
     <message>
-        <location filename="../src/glscope.cpp" line="410"/>
+        <location filename="../src/glscope.cpp" line="409"/>
         <source>Try command line option &apos;--useGLES&apos;
 </source>
         <translation>Prova kommandoradsflagga &apos;--useGLES&apos;
 </translation>
     </message>
     <message>
-        <location filename="../src/glscope.cpp" line="426"/>
-        <location filename="../src/glscope.cpp" line="433"/>
+        <location filename="../src/glscope.cpp" line="425"/>
+        <location filename="../src/glscope.cpp" line="432"/>
         <source>Failed to compile OpenGL shader programs.
 </source>
         <translation>Misslyckades med att kompilera OpenGL-shaderprogram.
 </translation>
     </message>
     <message>
-        <location filename="../src/glscope.cpp" line="441"/>
+        <location filename="../src/glscope.cpp" line="440"/>
         <source>Failed to link/bind OpenGL shader programs.
 </source>
         <translation>Misslyckades med att länka/binda OpenGL-shaderprogram.
 </translation>
     </message>
     <message>
-        <location filename="../src/glscope.cpp" line="450"/>
+        <location filename="../src/glscope.cpp" line="449"/>
         <source>Failed to locate shader variable.</source>
         <translation>Misslyckades med att hitta shader-variabel.</translation>
     </message>
@@ -701,7 +715,7 @@
 <context>
     <name>HantekDsoControl</name>
     <message>
-        <location filename="../src/hantekdso/hantekdsocontrol.cpp" line="574"/>
+        <location filename="../src/hantekdso/hantekdsocontrol.cpp" line="575"/>
         <source>Couldn&apos;t get calibration data from oscilloscope&apos;s EEPROM. Use a config file for calibration!</source>
         <translation>Kunde inte hämta kalibreringsdata från oscilloskopets EEPROM. Använd en konfigurationsfil för kalibrering!</translation>
     </message>
@@ -1252,7 +1266,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="515"/>
-        <source>&lt;p&gt;Open source software for Hantek6022 USB oscilloscopes&lt;/p&gt;&lt;p&gt;Maintainer: Martin Homuth-Rosemann&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; 2010, 2011 Oliver Haag&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; 2012-%1 OpenHantek community&lt;br/&gt;&lt;a href=&apos;https://github.com/OpenHantek&apos;&gt;https://github.com/OpenHantek&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Open source firmware copyright &amp;copy; 2019-%1 Ho-Ro&lt;br/&gt;&lt;a href=&apos;https://github.com/Ho-Ro/Hantek6022API&apos;&gt;https://github.com/Ho-Ro/Hantek6022API&lt;/a&gt;&lt;/p&gt;</source>
+        <source>&lt;p&gt;Open source software for Hantek6022 USB oscilloscopes&lt;/p&gt;&lt;p&gt;Maintainer: Martin Homuth-Rosemann&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; 2010, 2011 Oliver Haag&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; 2012-%1 OpenHantek community&lt;br/&gt;&lt;a href=&apos;https://github.com/OpenHantek&apos;&gt;https://github.com/OpenHantek&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Open source firmware copyright &amp;copy; 2019-%1 Martin Homuth-Rosemann&lt;br/&gt;&lt;a href=&apos;https://github.com/Ho-Ro/Hantek6022API&apos;&gt;https://github.com/Ho-Ro/Hantek6022API&lt;/a&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1281,15 +1295,15 @@
         <translation>yyyyMMDd_hhmmss</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="634"/>
-        <location filename="../src/mainwindow.cpp" line="648"/>
+        <location filename="../src/mainwindow.cpp" line="635"/>
+        <location filename="../src/mainwindow.cpp" line="649"/>
         <source>Write error
 %1</source>
         <translation>Skrivfel
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="638"/>
+        <location filename="../src/mainwindow.cpp" line="639"/>
         <source>Save Screenshot</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1298,12 +1312,12 @@
         <translation type="vanished">Fel</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="637"/>
+        <location filename="../src/mainwindow.cpp" line="638"/>
         <source>Image (*.png *.jpg)</source>
         <translation>Bild (*.png *.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="637"/>
+        <location filename="../src/mainwindow.cpp" line="638"/>
         <source>Portable Document Format (*.pdf)</source>
         <translation>Portable Document Format (*.pdf)</translation>
     </message>
@@ -1312,7 +1326,7 @@
         <translation type="vanished">Spara skärmbild</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="671"/>
+        <location filename="../src/mainwindow.cpp" line="672"/>
         <source>Print oscillograph</source>
         <translation>Skriv ut oscillograf</translation>
     </message>
@@ -1578,137 +1592,156 @@
         <translation type="obsolete">KAN1*KAN2 {2*?} {1^?}</translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="34"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="37"/>
         <source>CH1 + CH2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="36"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="39"/>
         <source>CH1 - CH2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="38"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="41"/>
         <source>CH2 - CH1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="40"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="43"/>
         <source>CH1 * CH2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="42"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="45"/>
         <source>CH1 &amp; CH2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="44"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="53"/>
+        <source>CH1 ^ CH2</source>
+        <translation>CH1 ^ CH2</translation>
+    </message>
+    <message>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="47"/>
         <source>/CH1 &amp; /CH2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="46"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="49"/>
         <source>/CH1 &amp; CH2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="48"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="51"/>
         <source>CH1 &amp; /CH2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="50"/>
-        <source>CH1 == CH2</source>
-        <translation></translation>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="57"/>
+        <source>CH1 &gt; CH2</source>
+        <translation>CH1 &gt; CH2</translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="52"/>
+        <source>CH2 &gt; CH1</source>
+        <translation type="vanished">CH2 &gt; CH1</translation>
+    </message>
+    <message>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="55"/>
+        <source>CH1 ≡ CH2</source>
+        <translation>CH1 ≡ CH2</translation>
+    </message>
+    <message>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="59"/>
+        <source>CH1 &lt; CH2</source>
+        <translation>CH1 &lt; CH2</translation>
+    </message>
+    <message>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="61"/>
         <source>CH1 LP10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="54"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="63"/>
         <source>CH2 LP10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="56"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="65"/>
         <source>CH1 LP100</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="58"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="67"/>
         <source>CH2 LP100</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="60"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="69"/>
         <source>CH1²</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="62"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="71"/>
         <source>CH2²</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="64"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="73"/>
         <source>CH1 AC</source>
         <translation>KAN1 AC</translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="66"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="75"/>
         <source>CH2 AC</source>
         <translation>KAN2 AC</translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="68"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="77"/>
         <source>CH1 DC</source>
         <translation>KAN1 DC</translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="70"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="79"/>
         <source>CH2 DC</source>
         <translation>KAN2 DC</translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="72"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="81"/>
         <source>CH1 Abs</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="74"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="83"/>
         <source>CH2 Abs</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="76"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="85"/>
         <source>CH1 Sign</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="78"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="87"/>
         <source>CH2 Sign</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="80"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="89"/>
         <source>CH1 AC Sign</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="82"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="91"/>
         <source>CH2 AC Sign</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="84"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="93"/>
         <source>CH1 Trigger</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/hantekdso/mathmodes.cpp" line="86"/>
+        <location filename="../src/hantekdso/mathmodes.cpp" line="95"/>
         <source>CH2 Trigger</source>
         <translation></translation>
     </message>
@@ -1849,7 +1882,7 @@
 <context>
     <name>ScopeDevice</name>
     <message>
-        <location filename="../src/usb/scopedevice.cpp" line="77"/>
+        <location filename="../src/usb/scopedevice.cpp" line="79"/>
         <source>Couldn&apos;t open device: %1</source>
         <translation>Kunde inte öppna enhet: %1</translation>
     </message>
@@ -2024,27 +2057,27 @@
 <context>
     <name>VoltageDock</name>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="26"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="23"/>
         <source>Voltage</source>
         <translation>Volt</translation>
     </message>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="55"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="53"/>
         <source>CH&amp;%1</source>
         <translation>KAN&amp;%1</translation>
     </message>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="57"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="55"/>
         <source>MA&amp;TH</source>
         <translation>MA&amp;TTE</translation>
     </message>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="61"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="59"/>
         <source>Voltage range per vertical screen division</source>
         <translation>Spänningsområde per vertikal skärmdivision</translation>
     </message>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="75"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="74"/>
         <source>Select DC or AC coupling</source>
         <translation>Välj DC- eller AC-koppling</translation>
     </message>
@@ -2054,17 +2087,17 @@
         <translation>Välj matematisk operation för denna kanal</translation>
     </message>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="62"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="60"/>
         <source>Invert</source>
         <translation>Invertera</translation>
     </message>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="65"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="64"/>
         <source>Set probe attenuation, scroll or type a value to select</source>
         <translation>Ställ in sonddämpning, bläddra eller skriv in ett värde för att välja</translation>
     </message>
     <message>
-        <location filename="../src/docks/VoltageDock.cpp" line="68"/>
+        <location filename="../src/docks/VoltageDock.cpp" line="67"/>
         <source>x</source>
         <translation>x</translation>
     </message>
@@ -2072,88 +2105,88 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../src/main.cpp" line="129"/>
-        <location filename="../src/main.cpp" line="170"/>
+        <location filename="../src/main.cpp" line="123"/>
+        <location filename="../src/main.cpp" line="164"/>
         <source>Show the international interface, do not translate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="153"/>
+        <location filename="../src/main.cpp" line="147"/>
         <source>Load config file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="154"/>
+        <location filename="../src/main.cpp" line="148"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="157"/>
+        <location filename="../src/main.cpp" line="151"/>
         <source>Demo mode without scope HW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="160"/>
+        <location filename="../src/main.cpp" line="154"/>
         <source>Use OpenGL ES instead of OpenGL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="162"/>
+        <location filename="../src/main.cpp" line="156"/>
         <source>Do not connect automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="165"/>
+        <location filename="../src/main.cpp" line="159"/>
         <source>Force OpenGL SL version 1.20</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="167"/>
+        <location filename="../src/main.cpp" line="161"/>
         <source>Force OpenGL SL version 1.50</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="172"/>
+        <location filename="../src/main.cpp" line="166"/>
         <source>Define the system font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="173"/>
+        <location filename="../src/main.cpp" line="167"/>
         <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="177"/>
+        <location filename="../src/main.cpp" line="171"/>
         <source>Set the font size (default = %1, 0: automatic from dpi)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="179"/>
+        <location filename="../src/main.cpp" line="173"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="182"/>
+        <location filename="../src/main.cpp" line="176"/>
         <source>Set the font condensed value (default = %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="183"/>
+        <location filename="../src/main.cpp" line="177"/>
         <source>Condensed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="186"/>
+        <location filename="../src/main.cpp" line="180"/>
         <source>Reset persistent settings, start with default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="189"/>
+        <location filename="../src/main.cpp" line="183"/>
         <source>Verbose tracing of program startup, ui and processing steps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="190"/>
+        <location filename="../src/main.cpp" line="184"/>
         <source>Level</source>
         <translation type="unfinished"></translation>
     </message>

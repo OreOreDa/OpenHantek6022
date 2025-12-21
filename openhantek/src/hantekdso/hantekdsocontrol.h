@@ -17,10 +17,8 @@
 #include "mathchannel.h"
 #include "scopesettings.h"
 #include "triggering.h"
-#include "utils/printutils.h"
-#include "viewconstants.h"
 
-#include "hantekprotocol/controlStructs.h"
+#include "hantekprotocol/controlcode.h"
 #include "hantekprotocol/definitions.h"
 
 #include "dsomodel.h"
@@ -314,7 +312,7 @@ class HantekDsoControl : public QObject {
     /// The available samplerate for fixed samplerate devices has changed
     void samplerateSet( int mode, QList< double > sampleSteps );
 
-    void samplerateChanged( double samplerate ); ///< The samplerate has changed
+    void samplerateCalculated( double samplerate, unsigned oversampling ); ///< The samplerate was newly calculated
 
     void communicationError() const;
 
