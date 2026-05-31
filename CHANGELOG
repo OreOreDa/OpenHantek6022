@@ -1,4 +1,12 @@
-2025-10-16 (4a1a39f): Merge branch 'main' of https://github.com/heit0r/OpenHantek6022 into heit0r-main PR #443 - Adding minor changes in PT translation.
+2026-04-29 (95f11e6): Add persistent font weight option
+2026-04-27 (e97c9a7): update translations
+2026-04-25 (cf3b0db): fix: reconnect scope after USB disconnect, close #467
+2026-04-21 (320c7f5): reactivate the stale workflow, mark after 365 days, lock 30 days later
+2026-04-21 (640a284): update github runner actions b/c node.js 20 actions are deprecated
+2026-04-21 (2659dc2): check modification from alwaysEpic (#PR459)
+2026-04-21 (736bbed): update workflow for current runer versions; update doc (closes #459)
+2026-04-20 (23cd42a): use firmware built with current SDCC version, no functional change
+2025-10-16 (bb36066): PR #443 - Adding minor changes in PT translation.
 2025-10-15 (3c021dc): (docs) Adding minor changes in PT translation.
 2025-10-10 (a54e26a): fix missing QtDBus on macOS
 2025-10-10 (f690e2b): remove macdeployqtfix from submodule

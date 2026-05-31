@@ -3,6 +3,7 @@
 #pragma once
 
 #include <QColor>
+#include <QFont>
 #include <QObject>
 #include <QPoint>
 #include <QString>
@@ -13,6 +14,7 @@
 // These values allow a quite narrow but readable display
 const QString defaultFont = "Arial";
 const int defaultFontSize = 10;
+const int defaultFontWeight = QFont::Normal;
 const int defaultCondensed = 87; // SemiCondensed = 87%
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,6 +56,7 @@ struct DsoSettingsView {
     bool cursorsVisible = false;
     DsoSettingsColorValues *colors = &screen;
     int fontSize = defaultFontSize;
+    int fontWeight = defaultFontWeight;
     bool styleFusion = false;
     int theme = 0;
     unsigned screenHeight = 0;

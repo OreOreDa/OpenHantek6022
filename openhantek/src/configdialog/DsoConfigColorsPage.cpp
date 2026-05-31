@@ -130,11 +130,18 @@ DsoConfigColorsPage::DsoConfigColorsPage( DsoSettings *settings, QWidget *parent
 
     fontSizeLabel = new QLabel( tr( "Font size (restart needed to apply the change)" ) );
     fontSizeSpinBox = new QSpinBox();
-    fontSizeSpinBox->setMinimum( 6 );
-    fontSizeSpinBox->setMaximum( 24 );
+    fontSizeSpinBox->setRange( 6, 24 );
     fontSizeSpinBox->setValue( settings->view.fontSize );
     colorsLayout->addWidget( fontSizeLabel, ++row, COL_LABEL );
     colorsLayout->addWidget( fontSizeSpinBox, row, COL_LABEL + 1 );
+
+    fontWeightLabel = new QLabel( tr( "Font weight (restart needed to apply the change)" ) );
+    fontWeightSpinBox = new QSpinBox();
+    fontWeightSpinBox->setRange( 1, 9 );
+    fontWeightSpinBox->setSuffix( "00" );
+    fontWeightSpinBox->setValue( settings->view.fontWeight / 100 );
+    colorsLayout->addWidget( fontWeightLabel, ++row, COL_LABEL );
+    colorsLayout->addWidget( fontWeightSpinBox, row, COL_LABEL + 1 );
 
     QStringList themeStrings;
     themeStrings << tr( "Auto" ) << tr( "Light" ) << tr( "Dark" );
@@ -185,6 +192,7 @@ void DsoConfigColorsPage::saveSettings() {
     }
     settings->view.printerColorImages = screenColorCheckBox->isChecked();
     settings->view.fontSize = fontSizeSpinBox->value();
+    settings->view.fontWeight = fontWeightSpinBox->value() * 100;
 
     settings->view.styleFusion = styleFusionCheckBox->isChecked();
     QSettings().setValue( "view/styleFusion", settings->view.styleFusion );

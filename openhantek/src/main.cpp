@@ -9,6 +9,7 @@
 #include <QStyleFactory>
 #include <QSurfaceFormat>
 #include <QTranslator>
+#include <qstyle.h>
 #ifdef Q_OS_LINUX
 #include <sched.h>
 #endif
@@ -34,6 +35,7 @@
 #include "capturing.h"
 #include "dsomodel.h"
 #include "hantekdsocontrol.h"
+#include "usb/devicereconnectionsupervisor.h"
 #include "usb/scopedevice.h"
 
 // Post processing
@@ -92,12 +94,13 @@ int main( int argc, char *argv[] ) {
     bool useLocale = true;       // the command line option
     bool doNotTranslate = false; // the persistent option
     bool resetSettings = false;
-    QString font = defaultFont;       // defined in viewsettings.h
-    int fontSize = defaultFontSize;   // defined in viewsettings.h
-    int condensed = defaultCondensed; // defined in viewsettings.h
-    int theme = 0;                    // set to "auto"
-    int toolTipVisible = 1;           // start with tooltips
-    bool styleFusion = false;         // use system style
+    QString font = defaultFont;         // defined in viewsettings.h
+    int fontSize = defaultFontSize;     // defined in viewsettings.h
+    int fontWeight = defaultFontWeight; // defined in viewsettings.h
+    int condensed = defaultCondensed;   // defined in viewsettings.h
+    int theme = 0;                      // set to "auto"
+    int toolTipVisible = 1;             // start with tooltips
+    bool styleFusion = false;           // use system style
     QString configFileName = QString();
 
     { // do this early at program start ...
@@ -110,6 +113,7 @@ int main( int argc, char *argv[] ) {
         QSettings storeSettings;
         storeSettings.beginGroup( "view" );
         fontSize = storeSettings.value( "fontSize", defaultFontSize ).toInt();
+        fontWeight = storeSettings.value( "fontWeight", defaultFontWeight ).toInt();
         styleFusion = storeSettings.value( "styleFusion", false ).toBool();
         theme = storeSettings.value( "theme", 0 ).toInt();
         toolTipVisible = storeSettings.value( "toolTipVisible", 1 ).toInt();
@@ -172,6 +176,12 @@ int main( int argc, char *argv[] ) {
                 .arg( fontSize ),
             QCoreApplication::translate( "main", "Size" ) );
         p.addOption( sizeOption );
+        QCommandLineOption weightOption(
+            { "w", "weight" },
+            QString( QCoreApplication::translate( "main", "Set the font weight (default = %1)" ) )
+                .arg( fontWeight ),
+            QCoreApplication::translate( "main", "Weight" ) );
+        p.addOption( weightOption );
         QCommandLineOption condensedOption(
             "condensed", QCoreApplication::translate( "main", "Set the font condensed value (default = %1)" ).arg( condensed ),
             QCoreApplication::translate( "main", "Condensed" ) );
@@ -192,6 +202,8 @@ int main( int argc, char *argv[] ) {
             font = p.value( "font" );
         if ( p.isSet( sizeOption ) )
             fontSize = p.value( "size" ).toInt();
+        if ( p.isSet( weightOption ) )
+            fontWeight = p.value( "weight" ).toInt();
         if ( p.isSet( condensedOption ) ) // allow range from UltraCondensed (50) to UltraExpanded (200)
             condensed = qBound( 50, p.value( "condensed" ).toInt(), 200 );
         useGLES = p.isSet( useGlesOption );
@@ -381,10 +393,16 @@ int main( int argc, char *argv[] ) {
     HantekDsoControl dsoControl( scopeDevice.get(), model, verboseLevel );
     dsoControl.moveToThread( &dsoControlThread );
     QObject::connect( &dsoControlThread, &QThread::started, &dsoControl, &HantekDsoControl::stateMachine );
-    QObject::connect( &dsoControl, &HantekDsoControl::communicationError, QCoreApplication::instance(), &QCoreApplication::quit );
-    if ( scopeDevice )
-        QObject::connect( scopeDevice.get(), &ScopeDevice::deviceDisconnected, QCoreApplication::instance(),
-                          &QCoreApplication::quit );
+    std::unique_ptr< DeviceReconnectionSupervisor > reconnectSupervisor;
+    if ( context && scopeDevice && scopeDevice->isRealHW() ) {
+        reconnectSupervisor = std::unique_ptr< DeviceReconnectionSupervisor >(
+            new DeviceReconnectionSupervisor( context, &dsoControl, scopeDevice, verboseLevel, &openHantekApplication ) );
+        QObject::connect( QCoreApplication::instance(), &QCoreApplication::aboutToQuit, reconnectSupervisor.get(),
+                          [ &reconnectSupervisor ]() { reconnectSupervisor->setClosing(); } );
+        QObject::connect( &dsoControl, &HantekDsoControl::communicationError, reconnectSupervisor.get(),
+                          [ &reconnectSupervisor ]() { reconnectSupervisor->handleDeviceDisconnected( false ); },
+                          Qt::QueuedConnection );
+    }
 
     const Dso::ControlSpecification *spec = model->spec();
 
@@ -478,11 +496,13 @@ int main( int argc, char *argv[] ) {
     if ( 0 == fontSize ) {                               // option -s0 -> use system font size
         fontSize = qBound( 6, appFont.pointSize(), 24 ); // values < 6 do not scale correctly
     }
-    // remember the actual fontsize setting
+    // remember the actual size and weight setting
     settings.view.fontSize = fontSize;
+    settings.view.fontWeight = fontWeight;
     appFont.setFamily( font ); // Fusion (or Windows) style + Arial (default) -> fit on small screen (Y >= 720)
     appFont.setStretch( condensed );
     appFont.setPointSize( fontSize ); // scales the widgets accordingly
+    appFont.setWeight( (QFont::Weight)fontWeight );
     // apply new font settings for the scope application
     if ( verboseLevel )
         qDebug() << startupTime.elapsed() << "ms:"
@@ -495,6 +515,10 @@ int main( int argc, char *argv[] ) {
         qDebug() << startupTime.elapsed() << "ms:"
                  << "create main window";
     MainWindow openHantekMainWindow( &dsoControl, &settings, &exportRegistry );
+    if ( reconnectSupervisor ) {
+        QObject::connect( reconnectSupervisor.get(), &DeviceReconnectionSupervisor::connectionStateChanged, &openHantekMainWindow,
+                          &MainWindow::deviceConnectionStateChanged );
+    }
     QObject::connect( &postProcessing, &PostProcessing::processingFinished, &openHantekMainWindow, &MainWindow::showNewData );
     QObject::connect( &exportRegistry, &ExporterRegistry::exporterProgressChanged, &openHantekMainWindow,
                       &MainWindow::exporterProgressChanged );
@@ -523,6 +547,9 @@ int main( int argc, char *argv[] ) {
                  << "application closed, clean up";
 
     std::cerr << std::unitbuf; // enable automatic flushing
+
+    if ( reconnectSupervisor )
+        reconnectSupervisor->setClosing();
 
     // the stepwise text output gives some hints about the shutdown timing
     // not needed with appropriate verbose level

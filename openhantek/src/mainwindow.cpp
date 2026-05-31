@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "src/ui_mainwindow.h"
 
 #include "HorizontalDock.h"
 #include "SpectrumDock.h"
@@ -223,6 +223,10 @@ MainWindow::MainWindow( HantekDsoControl *dsoControl, DsoSettings *settings, Exp
     // Central oszilloscope widget
     dsoWidget = new DsoWidget( &dsoSettings->scope, &dsoSettings->view, spec, this );
     setCentralWidget( dsoWidget );
+
+    deviceCommandWidgets = { voltageDock, horizontalDock, triggerDock, spectrumDock, dsoWidget };
+    deviceCommandActions = { ui->actionOpen, ui->actionSampling, ui->actionRefresh, ui->actionCalibrateOffset,
+                             ui->actionManualCommand };
 
     if ( dsoControl->getDevice()->isRealHW() ) { // enable online calibration and manual command input
         // Command field inside the status bar
@@ -570,6 +574,46 @@ void MainWindow::exporterProgressChanged() {
     if ( dsoSettings->scope.verboseLevel > 3 )
         qDebug() << "   MainWindow::exporterProgressChanged()";
     exporterRegistry->checkForWaitingExporters();
+}
+
+
+void MainWindow::deviceConnectionStateChanged( DeviceConnectionState state, const QString &message ) {
+    const bool available = state == DeviceConnectionState::Connected;
+
+    setDeviceCommandUiEnabled( available );
+
+    if ( !available ) {
+        QSignalBlocker samplingBlocker( ui->actionSampling );
+        QSignalBlocker calibrationBlocker( ui->actionCalibrateOffset );
+        QSignalBlocker manualCommandBlocker( ui->actionManualCommand );
+        ui->actionSampling->setChecked( false );
+        ui->actionSampling->setIcon( iconPlay );
+        ui->actionSampling->setText( tr( "Start" ) );
+        ui->actionSampling->setStatusTip( tr( "Oscilloscope unavailable" ) );
+        ui->actionCalibrateOffset->setChecked( false );
+        ui->actionManualCommand->setChecked( false );
+        if ( commandEdit )
+            commandEdit->hide();
+    }
+
+    if ( !message.isEmpty() )
+        statusBar()->showMessage( message, available ? 3000 : 0 );
+}
+
+
+void MainWindow::setDeviceCommandUiEnabled( bool enabled ) {
+    for ( QWidget *widget : deviceCommandWidgets ) {
+        if ( widget )
+            widget->setEnabled( enabled );
+    }
+
+    for ( QAction *action : deviceCommandActions ) {
+        if ( action )
+            action->setEnabled( enabled );
+    }
+
+    if ( commandEdit )
+        commandEdit->setEnabled( enabled );
 }
 
 

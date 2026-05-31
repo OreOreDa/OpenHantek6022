@@ -39,15 +39,19 @@ OpenHantek6022 is a free software for **Hantek DSO6022** USB digital signal osci
 <!-- * [Donate for FSF](#donate-for-fsf) -->
 
 ## About OpenHantek6022
-* Supported devices:
-  - Hantek 6022BE and 6022BL as well as compatible scopes (e.g. Voltcraft DSO-2020).
-  - SainSmart DDS120 (thx [msiegert](https://github.com/msiegert)) - this device has a different analog front end
- and uses the [slightly improved sigrok firmware](https://github.com/Ho-Ro/sigrok-firmware-fx2lafw), which has [some limitations](https://sigrok.org/wiki/SainSmart_DDS120/Info#Open-source_firmware_details)
- compared to the Hantek scopes (see [#69](https://github.com/OpenHantek/OpenHantek6022/issues/69#issuecomment-607341694)).
-
+* OH6022 works with digital USB 2 channel scopes that are based on the Cypress EzUSB processor,
+these devices are typically announced as scopes with a max. sample rate of 48 MS/s
+(even if this theoretical rate works not reliable on most systems due to USB protocol overhead).  
+Supported devices:
+  - **Hantek 6022BE** and **6022BL** as well as compatible scopes (e.g. **Voltcraft DSO-2020**).
+  - **SainSmart DDS120** (thx [msiegert](https://github.com/msiegert)) - this device has a different
+  analog front end and uses the
+  [slightly improved sigrok firmware](https://github.com/Ho-Ro/sigrok-firmware-fx2lafw),
+  which has [some limitations](https://sigrok.org/wiki/SainSmart_DDS120/Info#Open-source_firmware_details)
+  compared to the Hantek scopes (see [#69](https://github.com/OpenHantek/OpenHantek6022/issues/69#issuecomment-607341694)).
 * Demo mode is provided by the `-d` or `--demoMode` command line option.
-* Fully supported operating system: Linux; developed under debian stable (currently *bookworm*) for amd64 architecture.
-* Raspberry Pi packages (raspbian stable) are available on the [Releases](https://github.com/OpenHantek/OpenHantek6022/releases) page, check this [setup requirement](docs/build.md#raspberrypi).
+* Fully supported operating system: Linux; developed under debian stable (currently *trixie*) for amd64 architecture.
+* Raspberry Pi packages (raspbian stable)
 * Compiles under FreeBSD (packaging / installation: work in progress, thx [tspspi](https://github.com/tspspi)).
 * Other operating systems builds: [Windows](docs/images/screenshot_mainwindow_win.png) (mostly untested) & macOS (completely untested).
   **No support for non-Linux related issues unless a volunteer steps in!**
@@ -59,17 +63,26 @@ OpenHantek6022 is a free software for **Hantek DSO6022** USB digital signal osci
 * CH1 and CH2 name becomes red when input is clipped (bottom left).
 * Settable probe attenuation factor 1..1000 to accommodate a variety of different probes.
 * Measure and display Vpp, DC (average), AC, RMS and dB (of RMS) values as well as frequency of active channels.
-Display as *dBV* (0 dBV = 1 V rms), *dBu* (0 dBu = 1 mW @ 600 Ω) or *dBm* (0 dBu = 1 mW @ 50 Ω) can be selected in Oscilloscope/Settings/Analysis.
+  Display as *dBV* (0 dBV = 1 V rms), *dBu* (0 dBu = 1 mW @ 600 Ω) or *dBm* (0 dBu = 1 mW @ 50 Ω) can be selected in Oscilloscope/Settings/Analysis.
 * Display the power dissipation for a load resistance of 1..1000 Ω (optional, can be set in Oscilloscope/Settings/Analysis).
 * Display the THD of the signal (optional, can be enabled in Oscilloscope/Settings/Analysis).
-* Show the note values and deviation in cent (*twelve equal*, A = 440 Hz) for audio frequencies (optional, can be enabled in Oscilloscope/Settings/Analysis). Useful to tune e.g. your electrical guitar.
-* Math channel modes: CH1+CH2, CH1-CH2, CH2-CH1, CH1*CH2 and square, abs, sign, AC and DC part of CH1 or CH2.
+* Show the musical note values and deviation in cent (*twelve equal*, A = 440 Hz) for audio frequencies
+  (optional, can be enabled in Oscilloscope/Settings/Analysis). Useful to tune e.g. your electrical guitar.
+* Math channel arithmetical modes for CH1 and CH2:  
+  CH1+CH2, CH1-CH2, CH2-CH1, CH1*CH2
+* Math channel analog modes for CH1 or CH2:  
+  Square, abs, sign, AC and DC part, linear phase low pass filtering
+* Math channel logical modes for CH1 and CH2:  
+  And, or, xor, equality, comparison
+* Math channel logical modes for CH1 or CH2:  
+  Compare with trigger level
 * Time base 10 ns/div .. 10 s/div.
 * Sample rates 100, 200, 500 S/s, 1, 2, 5, 10, 20, 50, 100, 200, 500 kS/s, 1, 2, 5, 10, 12, 15, 24, 30 MS/s (24 & 30 MS/s in CH1-only mode, 48 MS/s not supported due to unstable USB data streaming).
 * Hardware input gain automatically selected based on vertical sensitivity: 1x (up to ±5 V for 1, 2 or 5 V/div), 2x (up to ±2.5 V for 500 mV/div), 5x (up to ±1 V for 200 mV/div) and 10x (up to ±500 mV for 20 or 50 mV/div).
 * Downsampling (up to 200x) increases resolution and SNR.
 * Calibration output square wave signal frequency can be selected between 32 Hz .. 100 kHz in small steps (*poor person's* signal generator).
 A [little HW modification](docs/HANTEK6022_Frequency_Generator_Modification.pdf) provides a jitter free HW-driven calibration output signal instead of the interrupt driven SW-output.
+* Trigger source: *CH1*, *CH2*, *MATH*
 * Trigger modes: *Normal*, *Auto* and *Single* with green/red status display (top left).
 * Untriggered *Roll* mode can be selected for slow time bases of 200 ms/div .. 10 s/div.
 * Trigger filter *HF* (trigger also on glitches), *Normal* and *LF* (for noisy signals).
@@ -83,11 +96,12 @@ A [little HW modification](docs/HANTEK6022_Frequency_Generator_Modification.pdf)
 * Cursor measurement function for voltage, time, amplitude and frequency.
 * Export of the graphs to JPG, PNG or PDF file or to the printer; data export as CSV or JSON. 
 * Freely configurable colors.
+* Selectable font size and font weight.
 * Automatic adaption of iconset for light and [dark themes](docs/images/screenshot_mainwindow_dark.png).
 * The dock views on the main window can be [customized](https://github.com/OpenHantek/OpenHantek6022/issues/161#issuecomment-799597664) by dragging them around and stacking them.
   This allows a minimum window size of 800*300 for old laptops or workstation computers.
-* All settings can be saved to a configuration file and loaded again.
-* French, German, Russian and Spanish localisation complete; Chinese, Polish and Swedish is updated regularily; Italian and Portuguese translation ongoing - [volunteers welcome](openhantek/translations/Translation_HowTo.md)!
+* All settings will be saved to a configuration file and loaded again.
+* French, German, Italien, Russian and Spanish localisation complete; Chinese, Polish and Swedish is updated regularily; Portuguese translation ongoing - [volunteers welcome](openhantek/translations/Translation_HowTo.md)!
 
 ## AC Coupling
 A [little HW modification](docs/HANTEK6022_AC_Modification.pdf) adds AC coupling. OpenHantek6022 supports this feature since v2.17-rc5 / FW0204.
@@ -96,7 +110,8 @@ A [little HW modification](docs/HANTEK6022_AC_Modification.pdf) adds AC coupling
 Every commit triggers a workflow on
 [GitHub Actions](https://github.com/OpenHantek/OpenHantek6022/actions/workflows/build_check.yml)
 that builds and packages OpenHantek6022 for:
-* Linux (`*.deb`, `*.rpm`, `*.tar.gz`)
+
+* Linux (`*_amd64.deb`, `*_arm64.deb`, `*.rpm`, `*.tar.gz`)
 * Windows (<!--`*_mingw_x64.zip`, -->`*_msvc_x64.zip`)
 * macOS - (`*_osx_arm64.dmg`, `*_osx_x86_64.dmg`, `*.tar.gz`)
 
@@ -111,35 +126,40 @@ The easiest way to get an up-to-date working code base is to clone the code from
 ````git clone https://github.com/OpenHantek/OpenHantek6022.git````
 
 and then build it locally, for this you will need the following software:
+
 * [CMake 3.12+](https://cmake.org/download/)
 * [Qt 6.2+](https://www1.qt.io/download-open-source/)
 * [FFTW 3+](http://www.fftw.org/) (prebuild files will be downloaded on windows)
 * [libusb-1.0](https://libusb.info/), version >= 1.0.16 (prebuild files will be used on windows)
 * A compiler that supports C++11 - tested with gcc, clang and msvc
 
-We have build instructions available for [Linux](docs/build.md#linux), [Raspberry Pi](docs/build.md#raspberrypi), [FreeBSD](docs/build.md#freebsd), [Apple macOS](docs/build.md#macos) and [Microsoft Windows](docs/build.md#windows).
+We have build instructions available for [Linux](docs/build.md#linux), [Raspberry Pi](docs/build.md#raspberrypi), [FreeBSD](docs/build.md#freebsd), [Apple macOS](docs/build.md#macos) and [Microsoft Windows](docs/build.md#windows).  
+For RPi4 see also [issue #28](https://github.com/OpenHantek/OpenHantek6022/issues/28).
 
 To make building for Linux even easier, I provide two shell scripts:
+
 * [`LinuxSetup_AsRoot`](LinuxSetup_AsRoot), which installs all build requirements. You only need to call this script once (as root) if you have cloned the project.
 * [`LinuxBuild`](LinuxBuild) configures the build, builds the binary and finally creates the packages (deb, rpm and tgz) that can be installed as described in the next paragraph.
+
 If you make small changes to the local source code, it is sufficient to call `make -j4` or `fakeroot make -j4 package` in the `build` directory.
 
 ## Install Prebuilt Binary Packages
 * [![Downloads of latest release](https://img.shields.io/github/downloads/OpenHantek/OpenHantek6022/latest/total?color=blue)](https://github.com/OpenHantek/OpenHantek6022/releases/latest)
-Download Linux (Ubuntu 2404 LTS), Raspberry Pi (Debian stable), FreeBSD (12.1), macOS (13) and Windows (MINGW / MSVC2022) packages for your convenience from the [Releases](https://github.com/OpenHantek/OpenHantek6022/releases) page.
+Download Linux (Ubuntu 2404 LTS), macOS (13) and Windows (MSVC2022) packages for your convenience from the [Releases](https://github.com/OpenHantek/OpenHantek6022/releases) page.
 * [![Downloads of latest devdrop](https://img.shields.io/github/downloads/OpenHantek/OpenHantek6022/devdrop/total?color=lightblue)](https://github.com/OpenHantek/OpenHantek6022/releases/tag/devdrop)
 If you want to follow ongoing development, packages built from a fairly recent commit are available in the rolling
 [devdrop release](https://github.com/OpenHantek/OpenHantek6022/releases/tag/devdrop).
 Individual features or elements of the GUI may still change.
-* For RPi4 see also [issue #28](https://github.com/OpenHantek/OpenHantek6022/issues/28).
 * These binary packages are built on stable operating system versions and require an up-to-date system.
 * As I develop on a *Debian stable* system my preferred (native) package format is `*.deb`.
-The program itself and the `*.deb` package built on my local system is tested for completeness and correctness.
+The program itself and the `*_amd64.deb` package built on my local system is tested for completeness and correctness.
 The precompiled packages are only randomly tested - if at all - and the installation of the `*.rpm` packages is untested.
 * To install the downloaded `*.deb` package, open a terminal window, go to the package directory and enter the command (as root) `apt install ./openhantek_..._amd64.deb`.
 This command will automatically install all dependencies of the program as well.
 * For installation of `*.rpm` packages follow similar rules, e.g. `dnf install ./openhantek-...-1.x86_64.rpm`.
-* The `*.tar.gz` achives contain the same files as the `*.deb` and `*.rpm` packages for quick testing - do not use for a permanent installation. Do not report any issues about the `*.tar.gz`!
+* The `*.tar.gz` achives contain the same files as the `*.deb` and `*.rpm` packages for quick testing.  
+Do not use for a permanent installation.  
+Do not report any issues about the `*.tar.gz`!
 * Get macOS packages from [macports](https://www.macports.org/ports.php?by=name&substr=openhantek) - thx [ra1nb0w](https://github.com/ra1nb0w).
 * Get [Fedora rpm packages](https://pkgs.org/download/openhantek) - thx [Vascom](https://github.com/Vascom).
 * Download [(untested) builds from last commit(s)](https://github.com/OpenHantek/OpenHantek6022/actions/workflows/build_check.yml). Select the preferred `workflow run` and go to `Artifacts`.
@@ -187,6 +207,7 @@ The Raspberry Pi build uses OpenGL ES automatically, check also the [graphics dr
 
 ### USB Access
 USB access for the device is required (unless using demo mode):
+* Starting with version 3.4.1 the program detects USB disconnections and tries to reconnect instead of terminating with an error.
 * **_Linux/Unix_**  
 You need to copy the file `utils/udev_rules/60-openhantek.rules` to `/etc/udev/rules.d/` or `/usr/lib/udev/rules.d/` and replug your device.
 Note: If OpenHantek is installed from a `*.deb` or `*.rpm` package this file is installed automatically into `/usr/lib/udev/rules.d/`.
