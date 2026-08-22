@@ -2468,98 +2468,98 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../src/main.cpp" line="127"/>
-        <location filename="../src/main.cpp" line="168"/>
+        <location filename="../src/main.cpp" line="137"/>
+        <location filename="../src/main.cpp" line="178"/>
         <source>Show the international interface, do not translate</source>
         <translation>Показывать международный интерфейс, не переводить</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="151"/>
+        <location filename="../src/main.cpp" line="161"/>
         <source>Load config file</source>
         <translation>Загрузить файла конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="152"/>
+        <location filename="../src/main.cpp" line="162"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="155"/>
+        <location filename="../src/main.cpp" line="165"/>
         <source>Demo mode without scope HW</source>
         <translation>Демо режим без аппаратуры осциллографа</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="158"/>
+        <location filename="../src/main.cpp" line="168"/>
         <source>Use OpenGL ES instead of OpenGL</source>
         <translation>Использовать OpenGL ES вместо OpenGL</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="160"/>
+        <location filename="../src/main.cpp" line="170"/>
         <source>Do not connect automatically</source>
         <translation>Не подключайтесь автоматически</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="163"/>
+        <location filename="../src/main.cpp" line="173"/>
         <source>Force OpenGL SL version 1.20</source>
         <translation>Принудительное использование OpenGL SL version 1.20</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="165"/>
+        <location filename="../src/main.cpp" line="175"/>
         <source>Force OpenGL SL version 1.50</source>
         <translation>Принудительное использование OpenGL SL version 1.50</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="170"/>
+        <location filename="../src/main.cpp" line="180"/>
         <source>Define the system font</source>
         <translation>Определить системный шрифт</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="171"/>
+        <location filename="../src/main.cpp" line="181"/>
         <source>Font</source>
         <translation>Шрифт</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="175"/>
+        <location filename="../src/main.cpp" line="185"/>
         <source>Set the font size (default = %1, 0: automatic from dpi)</source>
         <translation>Задать размер шрифта (по умолчанию = %1, 0: автоматически от dpi)</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="177"/>
+        <location filename="../src/main.cpp" line="187"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="181"/>
+        <location filename="../src/main.cpp" line="191"/>
         <source>Set the font weight (default = %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="183"/>
+        <location filename="../src/main.cpp" line="193"/>
         <source>Weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="186"/>
+        <location filename="../src/main.cpp" line="196"/>
         <source>Set the font condensed value (default = %1)</source>
         <translation>Задать значение сжатия шрифта (по умолчанию = %1)</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="187"/>
+        <location filename="../src/main.cpp" line="197"/>
         <source>Condensed</source>
         <translation>Сжатый</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="190"/>
+        <location filename="../src/main.cpp" line="200"/>
         <source>Reset persistent settings, start with default</source>
         <translation>Сбросить постоянные настройки, начать со значений по умолчанию</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="193"/>
+        <location filename="../src/main.cpp" line="203"/>
         <source>Verbose tracing of program startup, ui and processing steps</source>
         <translation>Подробная трассировка запуска программы, пользовательского интерфейса и этапов обработки</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="194"/>
+        <location filename="../src/main.cpp" line="204"/>
         <source>Level</source>
         <translation>Уровень</translation>
     </message>

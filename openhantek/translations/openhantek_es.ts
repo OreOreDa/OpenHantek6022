@@ -2472,98 +2472,98 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../src/main.cpp" line="127"/>
-        <location filename="../src/main.cpp" line="168"/>
+        <location filename="../src/main.cpp" line="137"/>
+        <location filename="../src/main.cpp" line="178"/>
         <source>Show the international interface, do not translate</source>
         <translation>Mostrar la interfaz internacional, no traducir</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="151"/>
+        <location filename="../src/main.cpp" line="161"/>
         <source>Load config file</source>
         <translation>Cargar archivo de configuración</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="152"/>
+        <location filename="../src/main.cpp" line="162"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="155"/>
+        <location filename="../src/main.cpp" line="165"/>
         <source>Demo mode without scope HW</source>
         <translation>Modo de demostración sin osciloscopio HW</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="158"/>
+        <location filename="../src/main.cpp" line="168"/>
         <source>Use OpenGL ES instead of OpenGL</source>
         <translation>Usar OpenGL ES en vez de OpenGL</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="160"/>
+        <location filename="../src/main.cpp" line="170"/>
         <source>Do not connect automatically</source>
         <translation>No conectar automáticamente</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="163"/>
+        <location filename="../src/main.cpp" line="173"/>
         <source>Force OpenGL SL version 1.20</source>
         <translation>Forzar OpenGL SL versión 1.20</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="165"/>
+        <location filename="../src/main.cpp" line="175"/>
         <source>Force OpenGL SL version 1.50</source>
         <translation>Forzar OpenGL SL versión 1.50</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="170"/>
+        <location filename="../src/main.cpp" line="180"/>
         <source>Define the system font</source>
         <translation>Definir la fuente del sistema</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="171"/>
+        <location filename="../src/main.cpp" line="181"/>
         <source>Font</source>
         <translation>Fuente</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="175"/>
+        <location filename="../src/main.cpp" line="185"/>
         <source>Set the font size (default = %1, 0: automatic from dpi)</source>
         <translation>Establecer el tamaño de fuente (por defecto = %1, 0: automático de dpi)</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="177"/>
+        <location filename="../src/main.cpp" line="187"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="181"/>
+        <location filename="../src/main.cpp" line="191"/>
         <source>Set the font weight (default = %1)</source>
         <translation>Establecer el peso de fuente (por defecto = %1)</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="183"/>
+        <location filename="../src/main.cpp" line="193"/>
         <source>Weight</source>
         <translation>Peso</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="186"/>
+        <location filename="../src/main.cpp" line="196"/>
         <source>Set the font condensed value (default = %1)</source>
         <translation>Establecer el valor condensado de la fuente (por defecto = %1)</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="187"/>
+        <location filename="../src/main.cpp" line="197"/>
         <source>Condensed</source>
         <translation>Condensado</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="190"/>
+        <location filename="../src/main.cpp" line="200"/>
         <source>Reset persistent settings, start with default</source>
         <translation>Restablecer la configuración persistente, comenzar con la predeterminada</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="193"/>
+        <location filename="../src/main.cpp" line="203"/>
         <source>Verbose tracing of program startup, ui and processing steps</source>
         <translation>Seguimiento detallado del inicio del programa, la interfaz de usuario y los pasos de procesamiento</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="194"/>
+        <location filename="../src/main.cpp" line="204"/>
         <source>Level</source>
         <translation>Nivel</translation>
     </message>

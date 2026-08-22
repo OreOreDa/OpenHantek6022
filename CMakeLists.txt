@@ -17,8 +17,8 @@ if (GIT_EXECUTABLE AND EXISTS "${CMAKE_SOURCE_DIR}/.git")
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
     # devdrop or release?
-    string(FIND ${VERSION} "devdrop-0-g" DEVDROP_POS)
-    string(FIND ${VERSION} "-0-g" ZERO_POS)
+    string(FIND "${VERSION}" "devdrop-0-g" DEVDROP_POS)
+    string(FIND "${VERSION}" "-0-g" ZERO_POS)
     if( ${DEVDROP_POS} EQUAL 0 ) # "x.y.z-p-gxxxxxxx(-dirty)-devdrop"
         execute_process(
             COMMAND ${GIT_EXECUTABLE} describe --long --dirty

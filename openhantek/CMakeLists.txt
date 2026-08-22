@@ -33,6 +33,9 @@ file(GLOB_RECURSE HEADERS "src/*.h")
 file(GLOB_RECURSE UI "src/*.ui")
 file(GLOB_RECURSE QRC "res/*.qrc")
 
+list(FILTER SRC EXCLUDE REGEX "/src/server/")
+list(FILTER HEADERS EXCLUDE REGEX "/src/server/")
+
 if(WIN32)
     file(GLOB_RECURSE RC "res/*.rc")
 endif()
@@ -44,6 +47,17 @@ add_custom_target(format SOURCES ".clang-format"
 include(translations/Translations.cmake)
 
 option(USE_OPENHANTEK_DRIVER "Use OpenHantek Windows driver" ON)
+
+find_package(Qt6 REQUIRED COMPONENTS Bluetooth Network)
+find_package(Protobuf REQUIRED)
+
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS
+    "${CMAKE_CURRENT_SOURCE_DIR}/proto/openhantek.proto")
+
+file(GLOB SERVER_SRC "src/server/*.cpp")
+file(GLOB SERVER_HEADERS "src/server/*.h")
+list(APPEND HEADERS ${SERVER_HEADERS})
+set(SERVER_GENERATED ${PROTO_SRCS} ${PROTO_HDRS})
 
 # Enable MacOSX bundle magic in the next line
 option(BUILD_MACOSX_BUNDLE "Build MacOS app bundle" ON)
@@ -64,8 +78,10 @@ endif()
 
 # make executable
 add_executable(${PROJECT_NAME} ${EXECTYPE} ${SRC} ${HEADERS} ${UI}
-${QRC} ${RC} ${TRANSLATION_BIN_FILES} ${TRANSLATION_QRC} ${ICONS})
+${QRC} ${RC} ${TRANSLATION_BIN_FILES} ${TRANSLATION_QRC} ${ICONS} ${SERVER_SRC} ${SERVER_GENERATED})
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::PrintSupport Qt6::OpenGL Qt6::OpenGLWidgets ${OPENGL_LIBRARIES} )
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} src/server)
+target_link_libraries(${PROJECT_NAME} Qt6::Bluetooth Qt6::Network protobuf::libprotobuf)
 if( APPLE AND BUILD_MACOSX_BUNDLE )
     find_package(Qt6 REQUIRED COMPONENTS DBus)
     target_link_libraries(${PROJECT_NAME} Qt6::DBus )

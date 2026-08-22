@@ -1,0 +1,13 @@
+brew update
+brew install libusb fftw qt cmake binutils create-dmg
+
+export CMAKE_PREFIX_PATH=/opt/homebrew/bin/cmake
+
+rm -fr build
+mkdir -p build
+cd build
+
+cmake ..
+make -j4
+
+cd ..

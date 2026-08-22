@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+package openhantek.proto;
+
+enum Coupling {
+    COUPLING_DC = 0;  // Dso::Coupling::DC
+    COUPLING_AC = 1;  // Dso::Coupling::AC
+    COUPLING_GND = 2; // Dso::Coupling::GND
+}
+
+enum TriggerMode {
+    TRIGGER_AUTO = 0;   // Dso::TriggerMode::AUTO
+    TRIGGER_NORMAL = 1; // Dso::TriggerMode::NORMAL
+    TRIGGER_SINGLE = 2; // Dso::TriggerMode::SINGLE
+    TRIGGER_ROLL = 3;   // Dso::TriggerMode::ROLL
+}
+
+enum Slope {
+    SLOPE_POSITIVE = 0; // Dso::Slope::Positive
+    SLOPE_NEGATIVE = 1; // Dso::Slope::Negative
+    SLOPE_BOTH = 2;     // Dso::Slope::Both
+}
+
+enum ErrorCode {
+    ERROR_NONE = 0;         //  0 Dso::ErrorCode::NONE
+    ERROR_CONNECTION = 1;   // -1 Dso::ErrorCode::CONNECTION
+    ERROR_UNSUPPORTED = 2;  // -2 Dso::ErrorCode::UNSUPPORTED
+    ERROR_PARAMETER = 3;    // -3 Dso::ErrorCode::PARAMETER
+}
+
+message EnableSampling { bool enabled = 1; }
+message SetSamplerate { double samplerate = 1; }
+message SetRecordTime { double duration = 1; }
+message SetChannelUsed { uint32 channel = 1; bool used = 2; }
+message SetChannelInverted { uint32 channel = 1; bool inverted = 2; }
+message SetProbe { uint32 channel = 1; double probe_attn = 2; }
+message SetGain { uint32 channel = 1; double gain = 2; }
+message SetCoupling { uint32 channel = 1; Coupling coupling = 2; }
+message SetTriggerMode { TriggerMode mode = 1; }
+message SetTriggerSource { int32 channel = 1; }
+message SetTriggerSmooth { int32 smooth = 1; }
+message SetTriggerLevel { uint32 channel = 1; double level = 2; }
+message SetTriggerSlope { Slope slope = 1; }
+message SetTriggerPosition { double position = 1; }
+message SetCalFreq { double calfreq = 1; }
+message RestartSampling {}
+message CalibrateOffset { bool enable = 1; }
+message StringCommand { string command = 1; }
+
+message Command {
+    // Optional client-assigned id echoed back in the matching Ack.
+    uint64 command_id = 1;
+    oneof payload {
+        EnableSampling enable_sampling = 2;
+        SetSamplerate set_samplerate = 3;
+        SetRecordTime set_record_time = 4;
+        SetChannelUsed set_channel_used = 5;
+        SetChannelInverted set_channel_inverted = 6;
+        SetProbe set_probe = 7;
+        SetGain set_gain = 8;
+        SetCoupling set_coupling = 9;
+        SetTriggerMode set_trigger_mode = 10;
+        SetTriggerSource set_trigger_source = 11;
+        SetTriggerSmooth set_trigger_smooth = 12;
+        SetTriggerLevel set_trigger_level = 13;
+        SetTriggerSlope set_trigger_slope = 14;
+        SetTriggerPosition set_trigger_position = 15;
+        SetCalFreq set_cal_freq = 16;
+        RestartSampling restart_sampling = 17;
+        CalibrateOffset calibrate_offset = 18;
+        StringCommand string_command = 19;
+    }
+}
+
+message ClientMessage {
+    oneof message {
+        Command command = 1;
+    }
+}
+
+message Ack {
+    uint64 command_id = 1;
+    ErrorCode error_code = 2;
+}
+
+message ShowSamplingStatus { bool enabled = 1; }
+message StatusMessage { string message = 1; int32 timeout = 2; }
+message SamplerateLimitsChanged { double minimum = 1; double maximum = 2; }
+message SamplerateSet { int32 mode = 1; repeated double sample_steps = 2; }
+message SamplerateCalculated { double samplerate = 1; uint32 oversampling = 2; }
+message CommunicationError {}
+message DeviceAvailabilityChanged { bool available = 1; }
+message LiveCalibrationError {}
+
+message SampleChannel {
+    repeated double values = 1 [packed = true];
+}
+
+message Samples {
+    repeated SampleChannel channels = 1;
+    double samplerate = 2;
+    uint32 clipped = 3;
+    bool live_trigger = 4;
+    int32 triggered_position = 5;
+    double pulse_width1 = 6;
+    double pulse_width2 = 7;
+    bool free_running = 8;
+    uint32 tag = 9;
+}
+
+message SampleValues {
+    repeated double samples = 1 [packed = true];
+    double interval = 2;
+}
+
+message DataChannel {
+    SampleValues voltage = 1;
+    SampleValues spectrum = 2;
+    bool valid = 3;
+    double vmin = 4;
+    double vmax = 5;
+    double rms = 6;
+    double db_min = 7;
+    double db_max = 8;
+    double dc = 9;
+    double ac = 10;
+    double db = 11;
+    double frequency = 12;
+    string note = 13;
+    double thd = 14;
+    double pulse_width1 = 15;
+    double pulse_width2 = 16;
+}
+
+message ProcessedResult {
+    repeated DataChannel channels = 1;
+    bool software_trigger_triggered = 2;
+    int32 triggered_position = 3;
+    double pulse_width1 = 4;
+    double pulse_width2 = 5;
+    uint32 tag = 6;
+}
+
+message Telemetry {
+    oneof payload {
+        ShowSamplingStatus show_sampling_status = 1;
+        StatusMessage status_message = 2;
+        SamplerateLimitsChanged samplerate_limits_changed = 3;
+        SamplerateSet samplerate_set = 4;
+        SamplerateCalculated samplerate_calculated = 5;
+        CommunicationError communication_error = 6;
+        DeviceAvailabilityChanged device_availability_changed = 7;
+        LiveCalibrationError live_calibration_error = 8;
+        Samples samples = 9;
+        ProcessedResult processed_result = 10;
+    }
+}
+
+message ServerMessage {
+    oneof message {
+        Ack ack = 1;
+        Telemetry telemetry = 2;
+    }
+}
+

@@ -53,6 +53,9 @@
 #include "mainwindow.h"
 #include "selectdevice/selectsupporteddevice.h"
 
+// Bluetooth RFCOMM server
+#include "server/serverapp.h"
+
 // OpenGL setup
 #include "glscope.h"
 
@@ -76,6 +79,13 @@ int main( int argc, char *argv[] ) {
     // this ENV variable hides the LANG=xx setting, fkt. not available under Windows
     unsetenv( "LANGUAGE" );
 #endif
+
+    for ( int i = 1; i < argc; ++i ) {
+        const QString arg = QString::fromLocal8Bit( argv[ i ] );
+        if ( arg == "-S" || arg == "--server" ) {
+            return runHeadlessServer( argc, argv );
+        }
+    }
 
     QElapsedTimer startupTime;
     startupTime.start(); // time tracking for verbose startup
